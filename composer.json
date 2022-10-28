@@ -1,0 +1,49 @@
+{
+	"name": "mwstake/mediawiki-component-oauth-client",
+	"license": "GPL-3.0-only",
+	"authors": [
+		{
+			"name": "Hallo Welt! GmbH",
+			"email": "info@hallowelt.com",
+			"homepage": "http://www.hallowelt.com"
+		}
+	],
+	"require": {
+		"mwstake/mediawiki-componentloader": "~1",
+		"composer/installers": "~1.0",
+		"league/oauth2-client": "2.6.*",
+		"firebase/php-jwt": " ^5.2.0",
+		"phpseclib/phpseclib": "~3.0",
+		"ext-sodium": "*"
+	},
+	"require-dev": {
+		"jakub-onderka/php-parallel-lint": "1.0.0",
+		"jakub-onderka/php-console-highlighter": "0.4.0",
+		"mediawiki/mediawiki-codesniffer": "29.0.0",
+		"mediawiki/minus-x": "1.0.0",
+		"phpunit/phpunit": "^8.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"MWStake\\MediaWiki\\Component\\OAuthClient\\": "src/",
+			"MWStake\\MediaWiki\\Component\\OAuthClient\\Tests\\": "tests/phpunit/"
+		},
+		"files": [
+			"bootstrap.php"
+		]
+	},
+	"scripts": {
+		"phpunit": [
+			"../../../tests/phpunit/phpunit.php -c .phpunit.xml"
+		],
+		"test": [
+			"parallel-lint . --exclude vendor --exclude node_modules",
+			"minus-x check .",
+			"phpcs -sp"
+		],
+		"fix": [
+			"minus-x fix .",
+			"phpcbf"
+		]
+	}
+}
