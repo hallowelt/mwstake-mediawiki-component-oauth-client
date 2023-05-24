@@ -166,7 +166,7 @@ class Connection {
 			$this->accessToken = $this->provider->getAccessToken( 'refresh_token', [
 				'refresh_token' => $this->accessToken->getRefreshToken(),
 			] );
-			if ( !$this->storeAccessToken( $accessToken ) ) {
+			if ( !$this->storeAccessToken( $this->accessToken ) ) {
 				$this->logger->warning('Failed to store access token');
 				throw new \Exception();
 			}

@@ -136,7 +136,7 @@ class Provider extends AbstractProvider {
 			throw new Exception( 'Verify JWT: iss not valid' );
 		}
 
-		$clientId = $this->config->get( 'TuleapOAuth2Config' )['clientId'] ?? null;
+		$clientId = $this->config->get( 'OAuthClientConfig' )['clientId'] ?? null;
 		if ( $d->aud !== $clientId ) {
 			$this->logger->error( 'Verify JWT: iss not valid: aud={aud} expected={client}', [
 				'aud' => $d->aud,
@@ -155,7 +155,7 @@ class Provider extends AbstractProvider {
 			if ( !$this->session ) {
 				throw new Exception( 'Session must be set before obtaining AccessToken' );
 			}
-			$storedNonce = $this->session->get( 'tuleapOauth2nonce' );
+			$storedNonce = $this->session->get( 'oauth2nonce' );
 			if ( !hash_equals( $nonce, $storedNonce ) ) {
 				throw new Exception( 'Verify JWT: nonce does not match' );
 			}
