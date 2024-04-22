@@ -90,6 +90,9 @@ class Provider extends AbstractProvider {
 			throw new Exception( "Cannot redirect to login" );
 		}
 		$page = MediaWikiServices::getInstance()->getSpecialPageFactory()->getPage( $this->loginPage );
+		if ( !$page ) {
+			throw new Exception( "Cannot redirect to login" );
+		}
 		$url = $page->getPageTitle()->getFullURL( [ 'returnto' => $this->session->getRequest()->getVal( 'title' ) ] );
 		header( 'Location: ' . $url );
 	}
