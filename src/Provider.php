@@ -7,7 +7,6 @@ use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use League\OAuth2\Client\Grant\AbstractGrant;
-use League\OAuth2\Client\OptionProvider\HttpBasicAuthOptionProvider;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
@@ -42,7 +41,6 @@ class Provider extends AbstractProvider {
 		$this->resourceOwnerSpec = $config->get( 'OAuthClientResourceOwner' );
 		$this->loginPage = $config->get( 'OAuthLoginPage' );
 		$options = $config->get( 'OAuthClientConfig' );
-
 
 		$parentConfig = [
 			'clientId' => $options['client_id'],
@@ -165,6 +163,9 @@ class Provider extends AbstractProvider {
 		}
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	protected function createAccessToken( array $response, AbstractGrant $grant ) {
 		if ( isset( $response['expires_at'] ) ) {
 			$response['expires'] = $response['expires_at'];
@@ -241,6 +242,11 @@ class Provider extends AbstractProvider {
 		return $this->getBaseUrl() . ( $endpoints[$type] ?? '' );
 	}
 
+	/**
+	 * @param string $key
+	 * @param mixed $default
+	 * @return mixed
+	 */
 	private function getConfigItem( $key, $default = null ) {
 		$config = $this->config->get( 'OAuthClientConfig' );
 		return $config[$key] ?? $default;

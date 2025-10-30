@@ -7,7 +7,7 @@ if ( defined( 'MWSTAKE_MEDIAWIKI_COMPONENT_OAUTH_CLIENT_VERSION' ) ) {
 define( 'MWSTAKE_MEDIAWIKI_COMPONENT_OAUTH_CLIENT_VERSION', '2.0.1' );
 
 MWStake\MediaWiki\ComponentLoader\Bootstrapper::getInstance()
-	->register( 'oauth-client', function () {
+	->register( 'oauth-client', static function () {
 		$GLOBALS['wgServiceWiringFiles'][] = __DIR__ . '/ServiceWiring.php';
 
 		$GLOBALS['wgOAuthClientConfig'] = $GLOBALS['wgOAuthClientConfig'] ?? [];
@@ -30,6 +30,3 @@ MWStake\MediaWiki\ComponentLoader\Bootstrapper::getInstance()
 			'class' => \League\OAuth2\Client\Provider\GenericResourceOwner::class
 		];
 	} );
-
-
-

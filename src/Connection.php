@@ -3,14 +3,12 @@
 namespace MWStake\MediaWiki\Component\OAuthClient;
 
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use League\OAuth2\Client\Provider\GenericResourceOwner;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use MediaWiki\Session\Session;
+use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Process\ExecutableFinder;
-use Symfony\Component\Process\Process;
 
 class Connection {
 	/** @var Provider */
@@ -120,6 +118,12 @@ class Connection {
 		return $ro;
 	}
 
+	/**
+	 * @param string $method
+	 * @param string $url
+	 * @param array $options
+	 * @return RequestInterface
+	 */
 	public function getAuthenticatedRequest( $method, $url, $options = [] ) {
 		$token = $this->getAccessToken();
 		if ( !$token ) {
@@ -167,15 +171,13 @@ class Connection {
 				'refresh_token' => $this->accessToken->getRefreshToken(),
 			] );
 			if ( !$this->storeAccessToken( $this->accessToken ) ) {
-				$this->logger->warning('Failed to store access token');
+				$this->logger->warning( 'Failed to store access token' );
 				throw new \Exception();
 			}
 		} catch ( \Exception $e ) {
 			$this->provider->redirectToLogin();
 		}
 	}
-
-
 
 	/**
 	 * @return string
