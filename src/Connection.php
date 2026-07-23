@@ -152,6 +152,9 @@ class Connection {
 		return $this->accessToken;
 	}
 
+	/**
+	 * @return bool
+	 */
 	private function trySetStoredAccessToken() {
 		$token = $this->retrieveStoredAccessToken();
 		if ( !( $token instanceof AccessTokenInterface ) ) {
