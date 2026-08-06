@@ -2,7 +2,6 @@
 
 namespace MWStake\MediaWiki\Component\OAuthClient;
 
-use Config;
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -10,6 +9,7 @@ use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
+use MediaWiki\Config\Config;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Session\Session;
 use phpseclib3\Crypt\PublicKeyLoader;
